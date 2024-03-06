@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Bridge : MonoBehaviour
 {
+    
+    
     private Rigidbody[] _rigidbodies;
     private NavMeshObstacle _navMeshObstacle;
     
@@ -34,5 +37,14 @@ public class Bridge : MonoBehaviour
             // Придаем силу каждому rigidbody.
             rigidbody.AddForce(direction * forceValue);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !other.GetComponent<Player>().IsHasBoost)
+        {
+            Break();
+        }
+       
     }
 }
